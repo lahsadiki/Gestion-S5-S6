@@ -574,8 +574,52 @@ html[data-theme=light] .modsw button.on{background:linear-gradient(135deg,rgba(1
 </style>
 <script>try{var _t=localStorage.getItem("comorga_theme")||(JSON.parse(localStorage.getItem("comorga_v1")||"{}").theme)||"dark";document.documentElement.dataset.theme=_t;}catch(e){document.documentElement.dataset.theme="dark";}</script>
 
-<link rel="manifest" href="manifest.webmanifest">
-<script>if("serviceWorker"in navigator&&location.protocol.indexOf("http")===0){addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}</script>
+
+<!-- ===== PWA : installation sur l'écran d'accueil ===== -->
+<script>
+(function(){
+  var I192="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAEXklEQVR4nO3dS24TWxSG0XLEADICtxkJbYZKm5HQzgiYAbdxZeQYP+pxXlX/Wj0klJTt/Z1dNok4TYP5/fHxp/c1UM/7+XzqfQ3Xul6MYWea+kbR/Bsbep5pHUOzb2bwWaJVCNW/icFni9ohVPviBp+SaoVQ/IsafGoqHcJbyS9m+Kmt9IwVqcng00OJbbB5Axh+eikxe5sCMPz0tnUGVwdg+BnFlllcFYDhZzRrZ3JxAIafUa2ZzUUBGH5Gt3RGZwdg+NmLJbM6KwDDz97MndmXARh+9mrO7Bb9UQjYm6cBOP3Zu1cz/DAAw89RPJtlt0BEuxuA05+jeTTTNgDR/gnA6c9R3ZttG4BonwJw+nN0tzNuAxDtbwBOf1Jcz7oNQDQBEO1tmtz+kOcy8zYA0QRANAEQTQBEO3kDTDIbgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoX3pfwMWv7996X0I1X3/8/PTnZ491yd/du9vH2kP3AI78Al9cHuOSF9zz0kbXW6CEF/na3MfreWmn2w/Dpb3IvNZjE3gTTLQuATj9uafHXNgAROv+KdCtET4aK6XkieZ5qcMGIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiDal94XcOvX92+9L2FInpc6bACidQng64+fPb4tg+sxFzYA0boFkLoFXj1uz0tbXTdA2os99/F6Xto5/f74+NPtu1/xKUeeEUIfJoAjaBnxCMNzBN4EE00ABbU6lZ3+5QigsNrDafjLEgDRBFBBrVPa6V+eACopPayGvw4BEE0AFZU6tZ3+9Qigsq3Da/jrEgDRBNDA2lPc6V+fABpZOsyGvw0BEE0ADfl9gPEIoDG/ETYWARBNAB08OuWd/u0JoJPbYTf8fQiAaALo6HLqO/378UvxRLMBiCYAogmAaAIg2tv7+XzqfRHQw/v5fLIBiCYAogmAaAIg2ts0/f9moPeFQEuXmbcBiCYAov0NwG0QKa5n3QYg2qcAbAGO7nbGbQCi/ROALcBR3ZttG4BodwOwBTiaRzNtAxDtYQC2AEfxbJafbgARsHevZtgtENFeBmALsFdzZnfWBhABezN3ZmffAomAvVgyq4veA4iA0S2d0cVvgkXAqNbM5qpPgUTAaNbO5OqPQUXAKLbM4qZ/BxABvW2dwc3/ECYCeikxe0WH13+2QQslD92iPwphG1Bb6RmrNrC2ASXVOlyrn9hCYIvadxXNblmEwBKtbqeb37MLgWdav4/s+qZVDExT3w9PhvvURhTHNtonhf8BWAE9cdSf48oAAAAASUVORK5CYII=", I512="data:image/png;base64,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", IMASK="data:image/png;base64,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";
+  try{
+    if(location.protocol.indexOf("http")===0){
+      var url=location.origin+location.pathname;
+      var m={name:"GESTION S5 · M.R.H",short_name:"gestion5",id:url,start_url:url,
+        scope:url.replace(/[^\/]*$/,""),display:"standalone",orientation:"portrait",
+        background_color:"#1e295a",theme_color:"#1e295a",lang:"fr",
+        icons:[{src:I192,sizes:"192x192",type:"image/png",purpose:"any"},
+               {src:I512,sizes:"512x512",type:"image/png",purpose:"any"},
+               {src:IMASK,sizes:"512x512",type:"image/png",purpose:"maskable"}]};
+      var l=document.createElement("link");l.rel="manifest";
+      l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:"application/manifest+json"}));
+      document.head.appendChild(l);
+      if("serviceWorker" in navigator){window.addEventListener("load",function(){
+        navigator.serviceWorker.register("sw.js").catch(function(){});});}
+    }
+  }catch(e){}
+
+  var standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone;
+  if(standalone)return;
+  var dp=null;
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e;});
+  window.addEventListener("appinstalled",function(){var b=document.getElementById("g5-install");if(b)b.remove();});
+  try{if(localStorage.getItem("g5_install_hidden")==="1")return;}catch(e){}
+
+  document.addEventListener("DOMContentLoaded",function(){
+    var w=document.createElement("div");w.id="g5-install";
+    w.style.cssText="position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:99999;display:flex;gap:8px;align-items:center;justify-content:space-between;background:#2b3a8c;color:#fff;border-radius:16px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.45);font:600 14px/1.3 Inter,system-ui,sans-serif";
+    w.innerHTML='<span style="flex:1">📲 Installer l\'application sur l\'écran d\'accueil</span>'
+      +'<button id="g5-go" style="background:#fff;color:#1e295a;border:0;border-radius:10px;padding:8px 14px;font-weight:800">Installer</button>'
+      +'<button id="g5-x" aria-label="Fermer" style="background:transparent;color:#fff;border:0;font-size:20px;padding:4px 8px">✕</button>';
+    document.body.appendChild(w);
+    document.getElementById("g5-x").onclick=function(){w.remove();try{localStorage.setItem("g5_install_hidden","1");}catch(e){}};
+    document.getElementById("g5-go").onclick=function(){
+      if(dp){dp.prompt();dp.userChoice.finally(function(){dp=null;w.remove();});return;}
+      var ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+      alert(ios?"iPhone : ouvrez cette page dans Safari, touchez le bouton Partager, puis « Sur l'écran d'accueil »."
+               :"Android : touchez le menu ⋮ du navigateur, puis « Installer l'application » ou « Ajouter à l'écran d'accueil ».");
+    };
+  });
+})();
+</script>
 </head>
 <body>
 <div class="aurora"><i></i><i></i><i></i></div><div class="grain"></div>
@@ -7497,5 +7541,38 @@ html[data-pal=ocean]{--a1:#0ea5e9;--a2:#22d3ee;--a3:#38bdf8}html[data-pal=ocean]
 html[data-pal=emeraude]{--a1:#10b981;--a2:#a3e635;--a3:#34d399}html[data-pal=emeraude]:not([data-theme=light]){--bg:#0f2a22;--bg2:#173a2f}
 html[data-pal=sunset]{--a1:#f97316;--a2:#f43f5e;--a3:#fbbf24}html[data-pal=sunset]:not([data-theme=light]){--bg:#2a1420;--bg2:#3a1c2b}
 </style>
+<style>
+#instBar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:70;display:none;max-width:460px;margin:0 auto;padding:14px 16px;border-radius:18px;background:var(--bg2,#25284f);color:inherit;border:1px solid rgba(127,127,127,.28);box-shadow:0 10px 34px rgba(0,0,0,.35);font:500 14px/1.45 Inter,system-ui,sans-serif}
+#instBar.show{display:block;animation:instUp .35s ease}
+@keyframes instUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+#instBar b{display:block;font:800 15px Outfit,Inter,sans-serif;margin-bottom:4px}
+#instBar ol{margin:6px 0 0;padding-left:20px}
+#instBar .ibtn{margin-top:10px;display:flex;gap:8px}
+#instBar button{flex:1;padding:10px 12px;border-radius:12px;border:0;font:700 13px Inter,system-ui,sans-serif;cursor:pointer;background:rgba(127,127,127,.2);color:inherit}
+#instBar button.pri{background:var(--a1,#6366f1);color:#fff}
+</style>
+<div id="instBar" role="dialog" aria-label="Installer l’application"></div>
+<script>
+(function(){
+  try{
+    var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;
+    if(standalone)return;
+    try{if(localStorage.getItem('gs5_inst_dismiss')==='1')return;}catch(e){}
+    var ua=navigator.userAgent||'';
+    var ios=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+    var android=/Android/i.test(ua);
+    if(!ios&&!android)return;
+    var steps=ios
+      ?'<ol><li>Touchez le bouton <b style="display:inline;font-size:inherit">Partager</b> (carré avec flèche) dans Safari.</li><li>Choisissez <b style="display:inline;font-size:inherit">Sur l’écran d’accueil</b>.</li><li>Touchez <b style="display:inline;font-size:inherit">Ajouter</b>.</li></ol>'
+      :'<ol><li>Touchez le menu <b style="display:inline;font-size:inherit">⋮</b> de Chrome.</li><li>Choisissez <b style="display:inline;font-size:inherit">Installer l’application</b> ou <b style="display:inline;font-size:inherit">Ajouter à l’écran d’accueil</b>.</li></ol>';
+    var bar=document.getElementById('instBar');
+    bar.innerHTML='<b>📲 Installer GESTION S5</b>Ajoutez l’application à votre écran d’accueil pour l’ouvrir comme une vraie app, en plein écran.'+steps+'<div class="ibtn"><button id="instLater">Plus tard</button><button id="instNever" class="pri">Compris</button></div>';
+    function hide(perm){bar.classList.remove('show');if(perm){try{localStorage.setItem('gs5_inst_dismiss','1');}catch(e){}}}
+    document.getElementById('instLater').onclick=function(){hide(false);};
+    document.getElementById('instNever').onclick=function(){hide(true);};
+    setTimeout(function(){bar.classList.add('show');},3500);
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
